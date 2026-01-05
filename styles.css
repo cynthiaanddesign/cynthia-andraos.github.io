@@ -260,6 +260,10 @@ header {
   cursor: pointer;
 }
 
+.project-card {
+  min-height: 420px;
+}
+
 
 /* Kortet får lite mer glow */
 .project-card:hover {
@@ -336,6 +340,11 @@ header {
   transform: scale(1.04);
 }
 
+.project-card:hover .project-thumb img {
+  filter: brightness(1.05) contrast(1.05);
+}
+
+
 /* Overlay glow */
 .project-thumb::after {
   content: "";
@@ -361,13 +370,17 @@ header {
   background-color: #0f0f14;
 }
 
+.project-thumb-logo img {
+  object-fit: contain; /* ← loggan visas hel */
+}
+
 .project-thumb img {
   width: 100%;
   height: 100%;
-  object-fit: contain;        /* visar hela loggan, ingen zoom/beskärning */
-  object-position: center;
+  object-fit: cover;   /* ← fyller hela rutan */
   display: block;
 }
+
 
 
 /* Placeholder-stil för Glimmer – mjuk lila, positiv, community-feel */
@@ -620,4 +633,67 @@ header {
   background-size: contain !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
+}
+
+/* Gör att thumbnails med <img> fungerar lika snyggt överallt */
+.project-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* snyggt för kampanjbilder */
+  display: block;
+}
+
+/* Men för loggor vill vi INTE beskära */
+.project-thumb img {
+  object-fit: contain;
+}
+
+body { background: #0f0f14 !important; }
+
+/* ===== Glimmer slider (scroll-snap) ===== */
+.slider {
+  margin-top: 1.2rem;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #14141a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.slider-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: clamp(220px, 40vw, 360px);
+  gap: 1rem;
+
+  padding: 1rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 1rem;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+.slider-track img {
+  width: 100%;
+  height: auto;
+  display: block;
+
+  border-radius: 16px;
+  background: #0f0f14;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+
+  scroll-snap-align: start;
+}
+
+/* Snygg scrollbar (valfri) */
+.slider-track::-webkit-scrollbar {
+  height: 10px;
+}
+.slider-track::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+}
+.slider-track::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.06);
 }
