@@ -1,0 +1,603 @@
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-light);
+  line-height: 1.6;
+
+  padding-top: 88px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Space Grotesk", sans-serif;
+  letter-spacing: -0.5px;
+}
+
+:target {
+  scroll-margin-top: 110px;
+}
+
+/* Fade-in on scroll */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 8%;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  background: rgba(15, 15, 16, 0.95);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+
+  z-index: 9999;
+}
+
+.logo {
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #f5f5f5;
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+.nav-links a:hover {
+  opacity: 1;
+}
+
+.nav-links a {
+  position: relative; /* behövs för underline-effekten */
+}
+
+.nav-links a.active {
+  opacity: 1;
+  color: var(--accent);
+}
+
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+.nav-toggle {
+  display: none; /* visas bara på mobil */
+  width: 2.4rem;
+  height: 2.4rem;
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin-left: auto;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  flex-direction: column;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  background: #f5f5f5;
+  transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+/* När nav har klassen "open" animerar vi ikonen lite */
+.nav.open .nav-toggle span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.nav.open .nav-toggle span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav.open .nav-toggle span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+
+.hero {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6rem 8%;
+  gap: 1.4rem;
+  background: linear-gradient(
+    135deg,
+    rgba(178, 107, 255, 0.15),
+    rgba(0, 0, 0, 0)
+  );
+}
+
+.hero h1 {
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 600;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  max-width: 38rem;
+  opacity: 0.85;
+}
+
+
+.hero h1 {
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+}
+
+.hero p {
+  max-width: 40rem;
+  opacity: 0.85;
+}
+
+.btn-primary {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 999px;
+  border: 1px solid #f5f5f5;
+  text-decoration: none;
+  color: #0f0f10;
+  background: #f5f5f5;
+  font-size: 0.95rem;
+}
+
+.btn-primary:hover {
+  filter: brightness(0.9);
+}
+
+.section {
+  padding: 4rem 8%;
+}
+
+.section h2 {
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+}
+
+header {
+  position: relative;
+  z-index: 9999;
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.section-header p {
+  max-width: 34rem;
+  color: var(--text-muted);
+}
+
+.projects {
+  background: var(--bg-dark-alt);
+  border-radius: 24px;
+  margin: 2rem 6%;
+  padding: 3rem 4%;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.8rem;
+}
+
+.project-card {
+  padding: 1.6rem 1.4rem;
+  border-radius: 18px;
+  background: #14141a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.55);
+  border-color: var(--accent);
+}
+
+.project-card h3 {
+  font-size: 1.1rem;
+}
+
+.project-card p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.project-card {
+  cursor: pointer;
+}
+
+/* Bilden zoomar lite */
+.project-card:hover .project-thumb {
+  transform: scale(1.04);
+}
+
+.project-thumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 30%,
+    rgba(178, 107, 255, 0.25)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-thumb::after {
+  opacity: 1;
+}
+
+/* Kortet får lite mer glow */
+.project-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 18px 40px rgba(178, 107, 255, 0.18);
+}
+
+.project-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(178, 107, 255, 0.12);
+  color: var(--accent-hover);
+}
+
+.project-link {
+  margin-top: 0.5rem;
+  align-self: flex-start;
+  background: transparent;
+  border: none;
+  color: var(--accent);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0;
+}
+
+.project-link:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+.project-meta {
+  list-style: none;
+  padding: 0;
+  margin: 0.4rem 0 0.7rem 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.project-meta li + li {
+  margin-top: 0.15rem;
+}
+
+.project-meta span {
+  font-weight: 500;
+  color: var(--text-light);
+  margin-right: 0.3rem;
+}
+
+.project-thumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  margin-bottom: 0.9rem;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #1b1b22;
+  overflow: hidden;
+  transition: transform 0.35s ease;
+}
+
+/* Placeholder-stil för Obscurius – kall vinter / foto-feel */
+.project-thumb-obscurius {
+  background-image: url("images/obscurius/obscurius-cover.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #0f0f14;
+}
+
+/* Placeholder-stil för Glimmer – mjuk lila, positiv, community-feel */
+.project-thumb-glimmer {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #0f0f14;
+}
+
+.project-thumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  margin-bottom: 0.9rem;
+  background-color: #0f0f14;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* För kvadratiska loggor/ikoner */
+.project-thumb-logo img {
+  max-height: 100%;     /* ← detta är nyckeln */
+  max-width: 90%;
+  object-fit: contain;
+}
+
+
+.project-thumb-logo {
+  background: radial-gradient(circle at 30% 20%, rgba(178, 107, 255, 0.25), rgba(15, 15, 20, 1) 60%);
+}
+
+/* Reclaim placeholder thumbnail */
+.project-thumb-reclaim {
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(178, 107, 255, 0.35), rgba(0, 0, 0, 0) 55%),
+    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0) 60%);
+  background-color: #0f0f14;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Coming soon-stil */
+.project-card-soon {
+  opacity: 0.92;
+}
+
+.project-link-disabled {
+  color: var(--text-muted);
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.about {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.about-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+.about-text p + p {
+  margin-top: 0.9rem;
+}
+
+.about-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.about-card {
+  background: #14141a;
+  border-radius: 18px;
+  padding: 1.3rem 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.about-card h3 {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  margin-bottom: 0.7rem;
+}
+
+.about-card ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.about-card li {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.contact {
+  background: var(--bg-dark-alt);
+  margin: 3rem 6%;
+  border-radius: 24px;
+  padding: 3rem 4%;
+}
+
+.contact-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.contact-text {
+  max-width: 28rem;
+}
+
+.contact-text p + p {
+  margin-top: 0.7rem;
+  color: var(--text-muted);
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  min-width: 230px;
+}
+
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  background: #14141a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  text-decoration: none;
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.contact-item:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.55);
+}
+
+.contact-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--text-muted);
+}
+
+.contact-value {
+  font-size: 0.95rem;
+  color: var(--text-light);
+}
+
+/* Responsiv anpassning */
+@media (max-width: 800px) {
+  .contact {
+    margin: 2.5rem 4%;
+    padding: 2.5rem 1.8rem;
+  }
+
+  .contact-inner {
+    flex-direction: column;
+  }
+
+  .contact-links {
+    width: 100%;
+  }
+
+  .contact-item {
+    width: 100%;
+  }
+}
+
+/* Responsiv anpassning */
+@media (max-width: 800px) {
+  .about-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+.footer {
+  padding: 2rem 8%;
+  font-size: 0.85rem;
+  opacity: 0.7;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+:root {
+  --bg-dark: #0b0b0d;
+  --bg-dark-alt: #101013;
+  --text-light: #f4f4f7;
+  --text-muted: #b7b7c2;
+  
+  /* Accentfärg - LILA */
+  --accent: #b26bff;
+  --accent-hover: #c991ff;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 0.85rem 1.8rem;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+@media (max-width: 800px) {
+  .nav {
+    padding: 1rem 6%;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 64px;
+    right: 0;
+    left: 0;
+    padding: 1.5rem 6%;
+    flex-direction: column;
+    gap: 1rem;
+    background: rgba(10, 10, 12, 0.98);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    display: none;
+  }
+
+  .nav.open .nav-links {
+    display: flex;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+}
